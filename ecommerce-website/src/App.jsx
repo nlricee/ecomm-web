@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import './App.css'
 import SignUpForm from "./components/SignUpForm";
 import { Link, Route, Routes } from "react-router-dom";
@@ -6,6 +6,8 @@ import React from "react";
 import { AuthContext } from "./AuthContext";
 
 function Navbar() {
+  const {user, logout} = useContext(AuthContext);
+
   return(
     <header
       style={{
@@ -23,28 +25,32 @@ function Navbar() {
       </nav>
 
       <div>
-        <Link to="/login">Login</Link>
+        {!user.isAuth ? <Link to="/login">Login</Link> : <button onClick={logout}>Logout</button>}
       </div>
     </header>
   )
 }
 
 function HomePage() {
+  const {user} = useContext(AuthContext);
   return (
     <div style={{ padding: "0 1.5rem" }}>
       <h1>Home</h1>
-
-      <p>You are not logged in. Go to the login page to sign in.</p>
+      {user.isAuth ? (
+        <p>Welcome back, {user.name}!</p>
+      ) : (<p>You are not logged in. Go to the login page to sign in.</p>)}
+      
     </div>
     
   );
 }
 
 function ProfilePage() {
+  const {user} = useContext(AuthContext);
   return (
     <div style={{ padding: "0 1.5rem" }}>
       <h1>Profile</h1>
-      <p>Name: [name will go here]</p>
+      <p>Name: {user.name}</p>
       <p>Here you could show more user info from the context.</p>
     </div>
   );
@@ -99,10 +105,15 @@ function App() {
   function login(name){
     setUser({name: name, isAuth: true});
   }
+
+  function logout() {
+    setUser({name: "", isAuth: false});
+  }
   return (
     <div>
-      <Navbar />
-      <AuthContext.Provider value={{ user, login }}>
+      
+      <AuthContext.Provider value={{ user, login, logout }}>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />}/>
           <Route path="/about" element={<AboutPage />}/>
