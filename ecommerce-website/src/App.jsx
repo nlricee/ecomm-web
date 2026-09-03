@@ -1,15 +1,52 @@
 import { useState, useContext } from "react";
 import './App.css'
 import { Link, Route, Routes } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
 
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import Checkout from "./pages/Checkout";
 import Navbar from "./components/Navbar";
+import AuthProvider from "./context/AuthContext";
 
+function App() {
+  return (
+    <AuthProvider>
+      <div className="app">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/auth" element={<Auth />} />
+        </Routes>
+      </div>
+    </AuthProvider>
+  );
+}
 
-{/*
+export default App;
+
+{/* OLD CODE
+          
+          const [user, setUser] = useState({ name: "", isAuth: false});
+
+          function login(name){
+            setUser({name: name, isAuth: true});
+          }
+
+          function logout() {
+            setUser({name: "", isAuth: false});
+          }
+
+          <AuthContext.Provider value={{ user, login, logout }}>
+            <Navbar />
+            <Route path="/" element={<HomePage />}/>
+            <Route path="/fridge" element={<FridgePage />}/>
+            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/login" element={<LoginPage />}/>
+            <Route path="*" element={<h1>404 Not Found</h1>}/>
+          </AuthContext.Provider>
+  */}
+  {/*
 
 function Navbar() {
   const {user, logout} = useContext(AuthContext);
@@ -113,43 +150,3 @@ function FridgePage() {
 }
 
 */}
-
-function App() {
-  return (
-    <div className="app">
-      <Navbar />
-      <Routes>
-        
-        <Route path="/" element={<Home />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/auth" element={<Auth />} />
-        
-
-          {/* 
-          
-          const [user, setUser] = useState({ name: "", isAuth: false});
-
-          function login(name){
-            setUser({name: name, isAuth: true});
-          }
-
-          function logout() {
-            setUser({name: "", isAuth: false});
-          }
-
-          <AuthContext.Provider value={{ user, login, logout }}>
-            <Navbar />
-            <Route path="/" element={<HomePage />}/>
-            <Route path="/fridge" element={<FridgePage />}/>
-            <Route path="/profile" element={<ProfilePage />}/>
-            <Route path="/login" element={<LoginPage />}/>
-            <Route path="*" element={<h1>404 Not Found</h1>}/>
-          </AuthContext.Provider>
-          */}
-
-      </Routes>
-    </div>
-  );
-}
-
-export default App;
