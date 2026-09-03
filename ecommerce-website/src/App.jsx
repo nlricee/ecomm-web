@@ -1,9 +1,15 @@
 import { useState, useContext } from "react";
 import './App.css'
-import SignUpForm from "./components/SignUpForm";
 import { Link, Route, Routes } from "react-router-dom";
-import React from "react";
 import { AuthContext } from "./AuthContext";
+
+import Home from "./pages/Home";
+import Auth from "./pages/Auth";
+import Checkout from "./pages/Checkout";
+import Navbar from "./components/Navbar";
+
+
+{/*
 
 function Navbar() {
   const {user, logout} = useContext(AuthContext);
@@ -21,7 +27,7 @@ function Navbar() {
       <nav style={{ display: "flex", gap: "1rem" }}>
         <Link to="/">Home</Link>
         <Link to="/profile">Profile</Link>
-        <Link to="/about">About</Link>
+        <Link to="/fridge">Fridge</Link>
       </nav>
 
       <div>
@@ -89,39 +95,59 @@ function LoginPage() {
   )
 }
 
-function AboutPage() {
+function FridgePage() {
+  const [count, setCount] = useState(0);
+
   return (
     <div style={{ padding: "0 1.5rem" }}>
-      <h1>About</h1>
+      <h1>Fridge</h1>
 
-      <p>This is something about me.</p>
+      <p>What's in my fridge</p>
+      <button onClick={() => setCount(count + 1)}>Add Item</button>
+      <p>Items in fridge: {count}</p>
+
+      <button onClick={() => setCount(0)}>Clear Fridge</button>
+
     </div>
   );
 }
 
+*/}
+
 function App() {
-  const [user, setUser] = useState({ name: "", isAuth: false});
-
-  function login(name){
-    setUser({name: name, isAuth: true});
-  }
-
-  function logout() {
-    setUser({name: "", isAuth: false});
-  }
   return (
-    <div>
-      
-      <AuthContext.Provider value={{ user, login, logout }}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />}/>
-          <Route path="/about" element={<AboutPage />}/>
-          <Route path="/profile" element={<ProfilePage />}/>
-          <Route path="/login" element={<LoginPage />}/>
-          <Route path="*" element={<h1>404 Not Found</h1>}/>
-        </Routes>
-    </AuthContext.Provider>
+    <div className="app">
+      <Navbar />
+      <Routes>
+        
+        <Route path="/" element={<Home />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/auth" element={<Auth />} />
+        
+
+          {/* 
+          
+          const [user, setUser] = useState({ name: "", isAuth: false});
+
+          function login(name){
+            setUser({name: name, isAuth: true});
+          }
+
+          function logout() {
+            setUser({name: "", isAuth: false});
+          }
+
+          <AuthContext.Provider value={{ user, login, logout }}>
+            <Navbar />
+            <Route path="/" element={<HomePage />}/>
+            <Route path="/fridge" element={<FridgePage />}/>
+            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/login" element={<LoginPage />}/>
+            <Route path="*" element={<h1>404 Not Found</h1>}/>
+          </AuthContext.Provider>
+          */}
+
+      </Routes>
     </div>
   );
 }
