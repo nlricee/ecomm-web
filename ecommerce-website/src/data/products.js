@@ -30,7 +30,7 @@ const products = [
     {
         id: 5,
         name: "Modern Lounge Chair",
-        price: 320.00,
+        price: 329.99,
         image: "https://cane-line.com/cdn/shop/files/Serene_lounge_chair_3394.jpg?v=1749612197&width=1800",
         description: "Grey contemporary lounge chair, perfect for outdoor seating."
     },
