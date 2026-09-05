@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Auth() {
 
-    const [mode, setMode] = useState("signup");
+    const location = useLocation();
+
+    // default to "signup" if login and signup are not clicked on navbar
+    const [mode, setMode] = useState(() => location.state?.mode || "signup");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const {signUp, login} = useAuth();
+
+    useEffect(() => {
+        if (location.state?.mode){
+            setMode(location.state.mode);
+        }
+    }, [location.state]);
 
     const { 
         register, 

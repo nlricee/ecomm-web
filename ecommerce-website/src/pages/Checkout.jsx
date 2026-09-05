@@ -13,7 +13,7 @@ export default function Checkout() {
     const total = getCartTotal();
 
     function placeOrder() {
-        alert("Successful Order!")
+        alert("Haha scammer get scammed")
         clearCart()
     }
     return (

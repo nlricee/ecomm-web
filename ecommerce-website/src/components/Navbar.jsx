@@ -20,10 +20,11 @@ export default function Navbar() {
                 <div className="navbar-auth">
                     {!user ? (
                         <div className="navbar-auth-links">
-                            <Link to="/auth" className="btn btn-secondary">
+                            <Link to="/auth" state={{ mode: "login" }} className="btn btn-secondary">
                                 Login
+                                
                             </Link>
-                            <Link to="/auth" className="btn btn-primary">
+                            <Link to="/auth" state={{ mode: "signup"}} className="btn btn-primary">
                                 Sign Up
                             </Link>
                         </div>
